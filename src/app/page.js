@@ -1,5 +1,4 @@
-import Card from './components/card'
-
+import Card from './components/firstcard'
 
 export default function Home(){
   return(
