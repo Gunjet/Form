@@ -36,7 +36,6 @@ import { useState } from 'react'
 export default function Home() {
   const [page, setPage] = useState(1)
   
-  // State to store the form data
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
