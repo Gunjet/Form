@@ -1,4 +1,4 @@
-export function FourthCard({Next, Back}){
+export function FourthCard(){
     return(
       <div className='w-[480px] h-[193px] bg-white rounded-md flex justify-center relative'>
         <div className='w-[416px] h-[465px] justify-center mt-8'>

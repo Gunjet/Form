@@ -25,6 +25,7 @@
 //     </div>
 //   )
 // }
+
 "use client"
 
 import Card from './components/firstcard'
