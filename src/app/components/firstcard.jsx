@@ -15,7 +15,7 @@ export default function Card({ Next, formData, handleInputChange }) {
     } else if (!nameRegex.test(value)) {
       setFirstNameError("First name cannot contain special characters or numbers.");
     } else {
-      setFirstNameError("");  
+      setFirstNameError(" ");  
     }
     handleInputChange("firstName", value);
   };
@@ -27,7 +27,7 @@ export default function Card({ Next, formData, handleInputChange }) {
     } else if (!nameRegex.test(value)) {
       setLastNameError("Last name cannot contain special characters or numbers.");
     } else {
-      setLastNameError(""); 
+      setLastNameError(" "); 
     }
     handleInputChange("lastName", value); 
   };
@@ -39,11 +39,11 @@ export default function Card({ Next, formData, handleInputChange }) {
     } else if (!nameRegex.test(value)) {
       setUserNameError("Username cannot contain special characters or numbers.");
     } else {
-      setUserNameError(""); 
+      setUserNameError(" "); 
     }
     handleInputChange("userName", value); 
   };
-  const isButtonDisabled = !!firstNameError || !!lastNameError || !!userNameError
+  const isButtonDisabled = !(firstNameError===" " && lastNameError===" " &userNameError===" ")
 
   return (
     <div className="w-[480px] h-[655px] bg-white rounded-md flex justify-center relative">
@@ -77,7 +77,7 @@ export default function Card({ Next, formData, handleInputChange }) {
           <div className="w-[416px] h-[68px] my-[2px]">
             <p className="font-semibold">Username *</p>
             <input
-              value={formData.username}
+              
               onChange={handleUserNameChange}
               className="w-[416px] h-[44px] padding-2 border-[1px] border-[#CBD5E1] rounded-md pl-2"
               placeholder="Enter your username"

@@ -1,11 +1,15 @@
-
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useState } from "react";
 
 export function SecondCard({ Next, Back, formData, handleInputChange }) {
   const [emailError, setEmailError] = useState("");
+  const [phoneNumberError, setPhoneNumberError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
   // const nameRegex = /^[A-Za-z]+$/;
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const phoneNumberRegex=/^\d{8,}$/
+
   const handleEmailChange = (e) => {
     const value = e.target.value.trim();
     if (value === ""){
@@ -19,11 +23,45 @@ export function SecondCard({ Next, Back, formData, handleInputChange }) {
     {
       setEmailError("Please provide a valid email address.")
     } else {
-      setEmailError("");
+      setEmailError(" ");
     }
     handleInputChange("email", value)
   }
-  const isButtonDisabled = !!emailError
+
+  const handlePhoneNumberChange = (e) => {
+    const value = e.target.value.trim();
+    if (value === ""){
+      setPhoneNumberError("Phone number cannot be empty.")
+    } else if(!phoneNumberRegex.test(value)){
+      setPhoneNumberError("Please enter a valid phone number.")
+    } else{
+      setPhoneNumberError(" ");
+    }
+    handleInputChange("phoneNumber", value)
+  }
+
+  const handlePasswordChange = (e) => {
+    const value = e.target.value.trim();
+    if (value === ""){
+      setPasswordError("Password cannot be empty.")
+    } else{
+      setPasswordError(" ");
+    }
+    handleInputChange("password", value)
+  }
+
+  const handleConfirmPasswordChange = (e) => {
+    const value = e.target.value.trim();
+    if (value === ""){
+      setConfirmPasswordError("Confirm pasword cannot be empty.")
+    } else if(value !== formData.password){
+      setConfirmPasswordError("Passwords do not match. Please try again.")
+    } else{
+      setConfirmPasswordError(" ")
+    }
+  }
+
+  const isButtonDisabled = !(emailError===" " && phoneNumberError===" " && passwordError===" " && confirmPasswordError===" ")
   return (
     <div className="w-[480px] h-[655px] bg-white rounded-md flex justify-center relative">
       <div className="w-[416px] h-[465px] flex-col justify-center mt-8">
@@ -47,30 +85,33 @@ export function SecondCard({ Next, Back, formData, handleInputChange }) {
             <p className="font-semibold my-[2px]">Phone number *</p>
             <input
               value={formData.phoneNumber}
-              onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
+              onChange={handlePhoneNumberChange}
               className="w-[416px] h-[44px] padding-2 border-[1px] border-[#CBD5E1] rounded-md pl-2"
               placeholder="Enter your phone number"
             />
+            {phoneNumberError && <p className="text-red-500 text-sm mt-1">{phoneNumberError}</p>} 
           </div>
           <div className="w-[416px] h-[68px] my-[2px]">
             <p className="font-semibold">Password *</p>
             <input
               type="password"
-              value={formData.password}
-              onChange={(e) => handleInputChange('password', e.target.value)}
+
+              onChange={handlePasswordChange}
               className="w-[416px] h-[44px] padding-2 border-[1px] border-[#CBD5E1] rounded-md pl-2"
               placeholder="Enter your password"
             />
+            {passwordError && <p className="text-red-500 text-sm mt-1">{passwordError}</p>} 
           </div>
           <div className="w-[416px] h-[68px]">
             <p className="font-semibold my-[2px]">Confirm password *</p>
             <input
-              type="password"
-              value={formData.confirmPassword}
-              onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
+              
+
+              onChange={handleConfirmPasswordChange}
               className="w-[416px] h-[44px] padding-2 border-[1px] border-[#CBD5E1] rounded-md pl-2"
               placeholder="Enter your password again"
             />
+            {confirmPasswordError && <p className="text-red-500 text-sm mt-1">{confirmPasswordError}</p>} 
           </div>
         </div>
       </div>
@@ -94,4 +135,3 @@ export function SecondCard({ Next, Back, formData, handleInputChange }) {
     </div>
   );
 }
-
